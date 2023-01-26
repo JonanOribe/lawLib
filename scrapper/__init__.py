@@ -1,0 +1,1 @@
+from scrapper.data_scrapper import DataScrapper
