@@ -1,5 +1,9 @@
 # lawLib
 
+Library to extract legal information from official resources.
+
+### Installation
+```
 <h3>:construction: Working enviroment:</h3>
 <li>Python version <b>3.9</b></li> 
 <li>Virtual enviroment: <b>py -m venv env</b></li> 
@@ -9,3 +13,20 @@
 <li>Install with: <b>pip3 install -r requirements.txt</b></li>
 <h3>:mag_right: Testing</h3>
 <li>Launch tests with: <b>pytest -W ignore::DeprecationWarning</b></li>
+```
+
+### Get started
+Get data from Spanish Supreme Court:
+
+```Python
+from scrapper import DataScrapper
+import configparser
+
+config = configparser.ConfigParser()
+config.read("config.ini")
+case_id:str = '29174'
+url:str = config['URLS']['SpanishSupremeCourt']+case_id
+
+returned_data = DataScrapper(url).get_data()
+print(returned_data)
+```
