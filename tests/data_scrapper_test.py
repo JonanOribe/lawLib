@@ -27,11 +27,15 @@ class DataScrapperTestCase(unittest.TestCase):
 
     def test_check_json_file(self):
         self.DataScrapper.save_data('json',output_path)
-        with open(output_path) as json_file:
-            data = json.load(json_file)
+        try:
+            with open(output_path) as json_file:
+                data = json.load(json_file)
             if os.path.exists(output_path):
                 os.remove(output_path)
-        self.assertEqual(len(data), len(case_ids))
+        except Exception:
+            raise RuntimeError()
+        else:
+            self.assertEqual(len(data), len(case_ids))
 
 if __name__ == '__main__':
     unittest.main()
