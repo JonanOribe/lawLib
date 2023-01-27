@@ -12,7 +12,7 @@ Library to extract legal information from official resources.
 <h3>:books: Dependencies</h3>
 <li>Install with: <b>pip3 install -r requirements.txt</b></li>
 <h3>:mag_right: Testing</h3>
-<li>Launch tests with: <b>pytest -W ignore::DeprecationWarning</b></li>
+<li>Launch tests with: <b>python -m unittest -v tests/data_scrapper_test.py</b></li>
 ```
 
 ### Get started
