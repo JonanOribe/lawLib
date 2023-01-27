@@ -19,6 +19,9 @@ class DataScrapper:
         response = requests.request("GET", completed_url, headers=headers, data=payload)
 
         completed_response.append(response.json())
+        if (int(case_id) % 100 == 0):
+          print('Number of scrapped elements: '+case_id)
+
       return completed_response
 
     def save_data(self, format:str, output_path:str):
