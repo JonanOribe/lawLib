@@ -9,7 +9,7 @@ url:str = config['URLS']['SpanishSupremeCourt']
 output_path:str = config['EXTRA']['OutputPath']
 
 #Get some cases
-returned_data = DataScrapper(url,case_ids).save_data('json')
+returned_data = DataScrapper(url,case_ids).get_data()
 print(returned_data)
 
 #Save cases as JSON
