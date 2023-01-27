@@ -12,21 +12,27 @@ Library to extract legal information from official resources.
 <h3>:books: Dependencies</h3>
 <li>Install with: <b>pip3 install -r requirements.txt</b></li>
 <h3>:mag_right: Testing</h3>
-<li>Launch tests with: <b>pytest -W ignore::DeprecationWarning</b></li>
+<li>Launch tests with: <b>python -m unittest -v tests/data_scrapper_test.py</b></li>
 ```
 
 ### Get started
 Get data from Spanish Supreme Court:
 
 ```Python
+from typing import List
 from scrapper import DataScrapper
 import configparser
 
 config = configparser.ConfigParser()
 config.read("config.ini")
-case_id:str = '29174'
-url:str = config['URLS']['SpanishSupremeCourt']+case_id
+case_ids:List = ['1','2','29174']
+url:str = config['URLS']['SpanishSupremeCourt']
+output_path:str = config['EXTRA']['OutputPath']
 
-returned_data = DataScrapper(url).get_data()
+#Get some cases
+returned_data = DataScrapper(url,case_ids).get_data()
 print(returned_data)
+
+#Save cases as JSON
+DataScrapper(url,case_ids).save_data('json',output_path)
 ```

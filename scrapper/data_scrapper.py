@@ -1,5 +1,6 @@
 from typing import List
 import requests
+import json
 
 class DataScrapper:
     def __init__(self, url, case_ids) -> None:
@@ -20,5 +21,8 @@ class DataScrapper:
         completed_response.append(response.json())
       return completed_response
 
-    def save_data(self,begin:int,end:int,format:str):
-      pass
+    def save_data(self, format:str, output_path:str):
+      data:List = self.get_data()
+      if format == 'json':
+        with open(output_path, 'w') as outfile:
+          json.dump(data, outfile)
