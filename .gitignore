@@ -130,3 +130,4 @@ dmypy.json
 
 # Extras
 deployCommands.md
+data/

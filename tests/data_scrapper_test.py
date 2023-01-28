@@ -8,7 +8,7 @@ import json
 config = configparser.ConfigParser()
 config.read("config.ini")
 case_ids:List = ['1','2','29174']
-url:str = config['URLS']['SpanishSupremeCourt']
+url:str = 'SpanishSupremeCourt'
 output_path:str = config['EXTRA']['OutputPath']
 
 
