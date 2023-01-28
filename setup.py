@@ -19,7 +19,7 @@ setup(
     description="Library to extract legal information from official resources",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://lawLib.readthedocs.io/",
+    url="https://github.com/JonanOribe/lawLib",
     author="Jon Ander Oribe",
     author_email="jonan.oribe@gmail.com",
     license="MIT",
