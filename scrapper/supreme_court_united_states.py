@@ -9,8 +9,6 @@ class SupremeCourtUnitedStates(DataScrapper):
         self.area:str = area
 
     def get_data(self):
-        completed_response = []
-
         completed_url:str = self.source+self.area
         headers = {
           'Content-Type': 'application/json'
