@@ -2,7 +2,27 @@
 
 Library to extract legal information from official resources.
 
-### Installation
+### Get started
+Get data from Spanish Supreme Court:
+
+```Python
+from typing import List
+from scrapper import DataScrapper
+
+case_ids:List = [str(i) for i in [*range(1,5)]]
+source:str = 'SpanishSupremeCourt'
+
+output_path:str = 'data/json_data.json'
+
+#Get some cases
+returned_data = DataScrapper(source,case_ids).get_data()
+print(returned_data)
+
+#Save cases as JSON
+DataScrapper(source,case_ids).save_data('json',output_path)
+```
+
+### Installation for development purposes
 ```
 <h3>:construction: Working enviroment:</h3>
 <li>Python version <b>3.9</b></li> 
@@ -13,28 +33,4 @@ Library to extract legal information from official resources.
 <li>Install with: <b>pip3 install -r requirements.txt</b></li>
 <h3>:mag_right: Testing</h3>
 <li>Launch tests with: <b>python -m unittest -v tests/data_scrapper_test.py</b></li>
-```
-
-### Get started
-Get data from Spanish Supreme Court:
-
-```Python
-from typing import List
-from scrapper import DataScrapper
-import configparser
-
-config = configparser.ConfigParser()
-config.read("config.ini")
-case_ids:List = [str(i) for i in [*range(1,5)]]
-url:str = 'SpanishSupremeCourt'
-
-#Something like data/json_data.json
-output_path:str = config['EXTRA']['OutputPath']
-
-#Get some cases
-returned_data = DataScrapper(url,case_ids).get_data()
-print(returned_data)
-
-#Save cases as JSON
-DataScrapper(url,case_ids).save_data('json',output_path)
 ```
