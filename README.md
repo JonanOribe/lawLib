@@ -25,8 +25,10 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read("config.ini")
-case_ids:List = ['1','2','29174']
-url:str = config['URLS']['SpanishSupremeCourt']
+case_ids:List = [str(i) for i in [*range(1,5)]]
+url:str = 'SpanishSupremeCourt'
+
+#Something like data/json_data.json
 output_path:str = config['EXTRA']['OutputPath']
 
 #Get some cases
