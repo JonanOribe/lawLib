@@ -16,6 +16,10 @@ class SupremeCourtUnitedStatesTestCase(unittest.TestCase):
     def setUp(self):
         self.SupremeCourtUnitedStates = SupremeCourtUnitedStates(source,area)
 
+    def test_get_areas(self):
+        options = self.SupremeCourtUnitedStates.get_areas()
+        self.assertGreater(len([key for key in options.keys()]),1)
+
     def test_get_first_element(self):
         result = self.SupremeCourtUnitedStates.get_data(output_path,'json',False)
         self.assertEqual(result['results'][0]['id'], 'scotus')
