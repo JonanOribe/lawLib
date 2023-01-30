@@ -2,14 +2,13 @@ import os
 import unittest
 from scrapper import SupremeCourtUnitedStates
 import configparser
-from typing import List
-import json
+import glob
 
 config = configparser.ConfigParser()
 config.read("config.ini")
 area:str = 'courts'
 source:str = 'USASupremeCourt'
-output_path:str = '{}{}_{}{}'.format(config['EXTRA']['OutputPath'],source,area,'.json')
+output_path:str = config['EXTRA']['OutputPath']
 
 
 class SupremeCourtUnitedStatesTestCase(unittest.TestCase):
@@ -18,20 +17,22 @@ class SupremeCourtUnitedStatesTestCase(unittest.TestCase):
         self.SupremeCourtUnitedStates = SupremeCourtUnitedStates(source,area)
 
     def test_get_first_element(self):
-        result = self.SupremeCourtUnitedStates.get_data()
+        result = self.SupremeCourtUnitedStates.get_data(output_path,'json',False)
         self.assertEqual(result['results'][0]['id'], 'scotus')
 
     def test_check_json_file(self):
-        self.SupremeCourtUnitedStates.save_data('json',output_path)
+        response = self.SupremeCourtUnitedStates.get_data(output_path,'json',True)
         try:
-            with open(output_path) as json_file:
-                data = json.load(json_file)
             if os.path.exists(output_path):
-                os.remove(output_path)
+                files = glob.glob(output_path+'/*.*')
+                created_files_count = len(files)
+                for f in files:
+                    os.remove(f)
         except Exception:
             raise RuntimeError()
         else:
-            self.assertGreater(data['count'], 0)
+            self.assertNotEqual(created_files_count,0) and self.assertEqual(len(files), 0)
+            self.assertIn('Data was saved!',response)
 
 if __name__ == '__main__':
     unittest.main()
