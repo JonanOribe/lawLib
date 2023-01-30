@@ -10,18 +10,17 @@ area:str='courts'
 source_SpanishSupremeCourt:str = 'SpanishSupremeCourt'
 source_USASupremeCourt:str = 'USASupremeCourt'
 
-#Something like data/SpanishSupremeCourt.json
-output_path_SpanishSupremeCourt:str = '{}{}{}'.format(config['EXTRA']['OutputPath'],source_SpanishSupremeCourt,'.json')
-output_path_USASupremeCourt:str = '{}{}_{}{}'.format(config['EXTRA']['OutputPath'],source_USASupremeCourt,area,'.json')
+#Something like data/
+output_path:str = config['EXTRA']['OutputPath']
+
+#Get some cases and save them on local files
+print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True))
+
+#Get some cases and return as list
+print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True))
 
 #Get some cases
-print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data())
+#print(SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data())
 
-#Save cases as JSON
-SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).save_data('json',output_path_SpanishSupremeCourt)
-
-#Get some cases
-print(SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data())
-
-SupremeCourtUnitedStates(source_USASupremeCourt,area).save_data('json',output_path_USASupremeCourt)
+#SupremeCourtUnitedStates(source_USASupremeCourt,area).save_data('json',output_path)
 
