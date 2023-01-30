@@ -21,6 +21,13 @@ class SupremeCourtUnitedStates(DataScrapper):
 
         return 'Data was saved! on {}'.format(output_path) if save_data_on_file else response
 
+    def get_areas(self):
+        completed_url:str = self.source
+        headers = {
+          'Content-Type': 'application/json'
+        }   
+        return requests.request("GET", completed_url, headers=headers, data={}).json()      
+
     def __save_data(self, file_name:str, data,format:str, output_path:str):
       if format == 'json':
         formatted_output_path:str = '{}{}.{}'.format(output_path, file_name, format)
