@@ -8,16 +8,21 @@ class SupremeCourtUnitedStates(DataScrapper):
         super().__init__(source)
         self.area:str = area
 
-    def get_data(self):
+    def get_data(self, output_path:str, format:str='json', save_data_on_file:bool=False):
         completed_url:str = self.source+self.area
         headers = {
           'Content-Type': 'application/json'
         }   
-        response = requests.request("GET", completed_url, headers=headers, data={}) 
-        return response.json()
 
-    def save_data(self, format:str, output_path:str):
-      data:List = self.get_data()
+        response = requests.request("GET", completed_url, headers=headers, data={}).json()
+
+        if(save_data_on_file):
+          self.__save_data(self.area, response, format, output_path)
+
+        return 'Data was saved! on {}'.format(output_path) if save_data_on_file else response
+
+    def __save_data(self, file_name:str, data,format:str, output_path:str):
       if format == 'json':
-        with open(output_path, 'w') as outfile:
+        formatted_output_path:str = '{}{}.{}'.format(output_path, file_name, format)
+        with open(formatted_output_path, 'w') as outfile:
           json.dump(data, outfile)
