@@ -17,7 +17,7 @@ output_path:str = config['EXTRA']['OutputPath']
 print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True))
 
 #Get some cases and return as list
-print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True))
+print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',False))
 
 #Get some cases
 #print(SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data())
