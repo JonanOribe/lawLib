@@ -1,6 +1,4 @@
 import requests
-from typing import List
-import json
 from scrapper.data_scrapper import DataScrapper
 
 class SupremeCourtUnitedStates(DataScrapper):
