@@ -1,5 +1,7 @@
 # lawLib
 
+[![Upload Python Package](https://github.com/JonanOribe/lawLib/actions/workflows/python-publish.yml/badge.svg?branch=main)](https://github.com/JonanOribe/lawLib/actions/workflows/python-publish.yml)
+
 Library to extract legal information from official resources.
 
 ### Get started
