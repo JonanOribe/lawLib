@@ -1,6 +1,5 @@
 from typing import List
 import requests
-import json
 
 from scrapper.data_scrapper import DataScrapper
 
