@@ -3,7 +3,7 @@
 Library to extract legal information from official resources.
 
 ### Get started
-Get data from Spanish Supreme Court:
+Get data from United States and Spanish Supreme Courts:
 
 ```Python
 from typing import List

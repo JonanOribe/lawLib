@@ -17,7 +17,7 @@ class SupremeCourtUnitedStates(DataScrapper):
         response = requests.request("GET", completed_url, headers=headers, data={}).json()
 
         if(save_data_on_file):
-          self.__save_data(self.area, response, format, output_path)
+          super()._save_data(self.area, response, format, output_path)
 
         return 'Data was saved! on {}'.format(output_path) if save_data_on_file else response
 
@@ -26,10 +26,4 @@ class SupremeCourtUnitedStates(DataScrapper):
         headers = {
           'Content-Type': 'application/json'
         }   
-        return requests.request("GET", completed_url, headers=headers, data={}).json()      
-
-    def __save_data(self, file_name:str, data,format:str, output_path:str):
-      if format == 'json':
-        formatted_output_path:str = '{}{}.{}'.format(output_path, file_name, format)
-        with open(formatted_output_path, 'w') as outfile:
-          json.dump(data, outfile)
+        return requests.request("GET", completed_url, headers=headers, data={}).json()

@@ -20,7 +20,7 @@ class SupremeCourtSpain(DataScrapper):
         response = requests.request("GET", completed_url, headers=headers, data={}).json()
 
         if(save_data_on_file):
-          self.__save_data(response['REFERENCIA_BOE'], response, format, output_path)
+          super()._save_data(response['REFERENCIA_BOE'], response, format, output_path)
         else:
           completed_response.append(response)
 
@@ -28,9 +28,3 @@ class SupremeCourtSpain(DataScrapper):
           print('Number of scrapped elements: '+case_id)
 
       return completed_response if len(completed_response)>0 else 'Data was saved! on {}'.format(output_path)
-
-    def __save_data(self, file_name:str, data, format:str, output_path:str):
-      if format == 'json':
-        formatted_output_path:str = '{}{}.{}'.format(output_path, file_name, format)
-        with open(formatted_output_path, 'w') as outfile:
-          json.dump(data, outfile)
