@@ -5,7 +5,6 @@ import json
 
 from models.magistrate import Magistrate
 
-
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -21,10 +20,6 @@ class DataScrapper:
         formatted_output_path:str = '{}{}.{}'.format(output_path, file_name, format)
         with open(formatted_output_path, 'w') as outfile:
           json.dump(data, outfile)
-      if format == 'graph':
-        
+      if format == 'graph': 
         for elem in data['RESOLUCIONES_MAGISTRADOS']:
           self.magistrates.append(Magistrate(data['REFERENCIA_BOE'],elem))
-        magistrates_json = json.loads(json.dumps([ob.__dict__ for ob in self.magistrates]))
-        df = pd.DataFrame.from_records(magistrates_json)
-        print(df)
