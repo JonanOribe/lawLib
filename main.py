@@ -14,14 +14,15 @@ source_USASupremeCourt:str = 'USASupremeCourt'
 output_path:str = config['EXTRA']['OutputPath']
 
 #Get some cases and save them on local files
-SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True)
+#SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True)
+SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'graph',True)
 
 #Get some cases and return as list
-print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',False))
+#print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',False))
 
 #Get some cases and save them on local files
-SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data(output_path,'json',True)
+#SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data(output_path,'json',True)
 
 #Get some cases and return as list
-print(SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data(output_path,'json',False))
+#print(SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data(output_path,'json',False))
 
