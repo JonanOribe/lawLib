@@ -26,9 +26,10 @@ class DataScrapper:
         with open(formatted_output_path, 'w') as outfile:
           json.dump(data, outfile)
       if format == 'graph': 
+        case_ref = data['REFERENCIA_BOE']
         for elem in data['RESOLUCIONES_MAGISTRADOS']:
-          self.magistrates.append(Magistrate(data['REFERENCIA_BOE'],elem))
+          self.magistrates.append(Magistrate(case_ref,elem))
         for elem in data['RESOLUCIONES_ANTECEDENTES']:
-          self.backgrounds.append(Background(data['REFERENCIA_BOE'],elem))
+          self.backgrounds.append(Background(case_ref,elem))
         for elem in data['RESOLUCIONES_ARTICULOS']:
-          self.articles.append(Article(data['REFERENCIA_BOE'],elem))
+          self.articles.append(Article(case_ref,elem))
