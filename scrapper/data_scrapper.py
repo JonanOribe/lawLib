@@ -2,6 +2,7 @@ import configparser
 from typing import List
 import pandas as pd
 import json
+from models.article import Article
 from models.background import Background
 
 from models.magistrate import Magistrate
@@ -14,6 +15,8 @@ class DataScrapper:
         self.source:str = {section: dict(config.items(section)) for section in config.sections()}['URLS'][source.lower()]
         self.magistrates:list[Magistrate] = []
         self.backgrounds:list[Background] = []
+        self.articles:list[Article] = []
+
     def get_scrapper_sources(self):
         return {section: dict(config.items(section)) for section in config.sections()}['URLS']
 
@@ -27,3 +30,5 @@ class DataScrapper:
           self.magistrates.append(Magistrate(data['REFERENCIA_BOE'],elem))
         for elem in data['RESOLUCIONES_ANTECEDENTES']:
           self.backgrounds.append(Background(data['REFERENCIA_BOE'],elem))
+        for elem in data['RESOLUCIONES_ARTICULOS']:
+          self.articles.append(Article(data['REFERENCIA_BOE'],elem))
