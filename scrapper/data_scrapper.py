@@ -2,6 +2,7 @@ import configparser
 from typing import List
 import pandas as pd
 import json
+from models.abstract import Abstract
 from models.article import Article
 from models.background import Background
 from models.dictum import Dictum
@@ -20,6 +21,7 @@ class DataScrapper:
         self.articles:list[Article] = []
         self.headers:list[Header] = []
         self.dictums:list[Dictum] = []
+        self.abstracts:list[Abstract] = []
 
     def get_scrapper_sources(self):
         return {section: dict(config.items(section)) for section in config.sections()}['URLS']
@@ -41,3 +43,5 @@ class DataScrapper:
           self.headers.append(Header(case_ref,elem))
         for elem in data['RESOLUCIONES_DICTAMEN']:
           self.dictums.append(Dictum(case_ref,elem))
+        for elem in data['RESOLUCIONES_EXTRACTOS']:
+          self.abstracts.append(Abstract(case_ref,elem))
