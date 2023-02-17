@@ -6,6 +6,7 @@ from models.abstract import Abstract
 from models.article import Article
 from models.background import Background
 from models.dictum import Dictum
+from models.fundamentals import Fundamentals
 from models.header import Header
 
 from models.magistrate import Magistrate
@@ -22,6 +23,7 @@ class DataScrapper:
         self.headers:list[Header] = []
         self.dictums:list[Dictum] = []
         self.abstracts:list[Abstract] = []
+        self.fundamentals:list[Fundamentals] = []
 
     def get_scrapper_sources(self):
         return {section: dict(config.items(section)) for section in config.sections()}['URLS']
@@ -45,3 +47,5 @@ class DataScrapper:
           self.dictums.append(Dictum(case_ref,elem))
         for elem in data['RESOLUCIONES_EXTRACTOS']:
           self.abstracts.append(Abstract(case_ref,elem))
+        for elem in data['RESOLUCIONES_EXTRACTOS']:
+          self.fundamentals.append(Fundamentals(case_ref,elem))

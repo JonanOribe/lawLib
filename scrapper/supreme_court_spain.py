@@ -22,6 +22,8 @@ class SupremeCourtSpain(DataScrapper):
       pd.DataFrame.from_records(dictums_json).to_csv(output_path+'dictums.csv',index=False)
       abstracts_json = json.loads(json.dumps([ob.__dict__ for ob in self.abstracts]))
       pd.DataFrame.from_records(abstracts_json).to_csv(output_path+'abstracts.csv',index=False)
+      fundamentals_json = json.loads(json.dumps([ob.__dict__ for ob in self.fundamentals]))
+      pd.DataFrame.from_records(fundamentals_json).to_csv(output_path+'fundamentals.csv',index=False)
 
     def get_data(self, output_path:str, format:str='json', save_data_on_file:bool=False):
       completed_response = []
