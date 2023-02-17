@@ -4,6 +4,7 @@ import pandas as pd
 import json
 from models.article import Article
 from models.background import Background
+from models.header import Header
 
 from models.magistrate import Magistrate
 
@@ -16,6 +17,7 @@ class DataScrapper:
         self.magistrates:list[Magistrate] = []
         self.backgrounds:list[Background] = []
         self.articles:list[Article] = []
+        self.headers:list[Header] = []
 
     def get_scrapper_sources(self):
         return {section: dict(config.items(section)) for section in config.sections()}['URLS']
@@ -33,3 +35,5 @@ class DataScrapper:
           self.backgrounds.append(Background(case_ref,elem))
         for elem in data['RESOLUCIONES_ARTICULOS']:
           self.articles.append(Article(case_ref,elem))
+        for elem in data['RESOLUCIONES_CABECERA']:
+          self.headers.append(Header(case_ref,elem))
