@@ -5,7 +5,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-case_ids:List = [str(i) for i in [*range(1,5)]]
+case_ids:List = [str(i) for i in [*range(1,200)]]
 area:str='courts'
 source_SpanishSupremeCourt:str = 'SpanishSupremeCourt'
 source_USASupremeCourt:str = 'USASupremeCourt'
