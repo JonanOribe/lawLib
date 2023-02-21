@@ -10,6 +10,8 @@ class SupremeCourtSpain(DataScrapper):
         self.case_ids:List = case_ids
 
     def prepare_csv(self,output_path:str):
+      cases_json = json.loads(json.dumps([ob.__dict__ for ob in self.cases]))
+      pd.DataFrame.from_records(cases_json).to_csv(output_path+'cases.csv',index=False)
       magistrates_json = json.loads(json.dumps([ob.__dict__ for ob in self.magistrates]))
       pd.DataFrame.from_records(magistrates_json).to_csv(output_path+'magistrates.csv',index=False)
       backgrounds_json = json.loads(json.dumps([ob.__dict__ for ob in self.backgrounds]))

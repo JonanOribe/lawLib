@@ -5,6 +5,7 @@ import json
 from models.abstract import Abstract
 from models.article import Article
 from models.background import Background
+from models.case import Case
 from models.dictum import Dictum
 from models.fundamentals import Fundamentals
 from models.header import Header
@@ -17,6 +18,7 @@ config.read("config.ini")
 class DataScrapper:
     def __init__(self, source) -> None:
         self.source:str = {section: dict(config.items(section)) for section in config.sections()}['URLS'][source.lower()]
+        self.cases:list[Case] = []
         self.magistrates:list[Magistrate] = []
         self.backgrounds:list[Background] = []
         self.articles:list[Article] = []
@@ -35,6 +37,7 @@ class DataScrapper:
           json.dump(data, outfile)
       if format == 'graph': 
         case_ref = data['REFERENCIA_BOE']
+        self.cases.append(Case(data))
         for elem in data['RESOLUCIONES_MAGISTRADOS']:
           self.magistrates.append(Magistrate(case_ref,elem))
         for elem in data['RESOLUCIONES_ANTECEDENTES']:
