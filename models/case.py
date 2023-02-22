@@ -18,6 +18,7 @@ class Case:
         self.green_tome_number:int = case_data.get('NUMERO_TOMO_VERDE','')
         self.signature_date:str = case_data.get('FECHA_FIRMA','')
         self.boe_reference:str = case_data.get('REFERENCIA_BOE','')
+        self.case_id:str = self.boe_reference+'-'+str(case_data['ID'])
         self.xml_boe_corrections:str = case_data.get('XML_CORRECCIONES_BOE','')
 
         self.last_update:str = case_data.get('ULTIMA_ACTUALIZACION','')

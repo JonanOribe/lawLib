@@ -50,5 +50,5 @@ class DataScrapper:
           self.dictums.append(Dictum(case_ref,elem))
         for elem in data['RESOLUCIONES_EXTRACTOS']:
           self.abstracts.append(Abstract(case_ref,elem))
-        for elem in data['RESOLUCIONES_EXTRACTOS']:
+        for elem in data['RESOLUCIONES_FUNDAMENTOS']:
           self.fundamentals.append(Fundamentals(case_ref,elem))
