@@ -38,17 +38,38 @@ class DataScrapper:
       if format == 'graph': 
         case_ref = data['REFERENCIA_BOE']
         self.cases.append(Case(data))
-        for elem in data['RESOLUCIONES_MAGISTRADOS']:
-          self.magistrates.append(Magistrate(case_ref,elem))
-        for elem in data['RESOLUCIONES_ANTECEDENTES']:
-          self.backgrounds.append(Background(case_ref,elem))
-        for elem in data['RESOLUCIONES_ARTICULOS']:
-          self.articles.append(Article(case_ref,elem))
-        for elem in data['RESOLUCIONES_CABECERA']:
-          self.headers.append(Header(case_ref,elem))
-        for elem in data['RESOLUCIONES_DICTAMEN']:
-          self.dictums.append(Dictum(case_ref,elem))
-        for elem in data['RESOLUCIONES_EXTRACTOS']:
-          self.abstracts.append(Abstract(case_ref,elem))
-        for elem in data['RESOLUCIONES_FUNDAMENTOS']:
-          self.fundamentals.append(Fundamentals(case_ref,elem))
+        try:
+          for elem in data['RESOLUCIONES_MAGISTRADOS']:
+            self.magistrates.append(Magistrate(case_ref,elem))
+        except:
+          pass
+        try:
+          for elem in data['RESOLUCIONES_ANTECEDENTES']:
+            self.backgrounds.append(Background(case_ref,elem))
+        except:
+          pass
+        try:
+          for elem in data['RESOLUCIONES_ARTICULOS']:
+            self.articles.append(Article(case_ref,elem))
+        except:
+          pass
+        try:
+          for elem in data['RESOLUCIONES_CABECERA']:
+            self.headers.append(Header(case_ref,elem))
+        except:
+          pass
+        try:
+          for elem in data['RESOLUCIONES_DICTAMEN']:
+            self.dictums.append(Dictum(case_ref,elem))
+        except:
+          pass
+        try:
+          for elem in data['RESOLUCIONES_EXTRACTOS']:
+            self.abstracts.append(Abstract(case_ref,elem))
+        except:
+          pass
+        try:
+          for elem in data['RESOLUCIONES_FUNDAMENTOS']:
+            self.fundamentals.append(Fundamentals(case_ref,elem))
+        except:
+          pass
