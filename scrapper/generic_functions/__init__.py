@@ -1,0 +1,3 @@
+from scrapper.data_scrapper import DataScrapper
+from scrapper.supreme_court_spain import SupremeCourtSpain
+from scrapper.supreme_court_united_states import SupremeCourtUnitedStates

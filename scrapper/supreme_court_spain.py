@@ -1,6 +1,4 @@
-import random
 from typing import List
-import time
 import requests
 import json
 import pandas as pd
@@ -67,10 +65,6 @@ class SupremeCourtSpain(DataScrapper):
 
         if (int(index) % 100 == 0):
           print('Number of scrapped elements: '+case_id)
-        
-        delay:int = (250/1000) * random.randint(0, 10)
-        print('Waiting for {miliseconds} seconds to avoid blocking from the server'.format(miliseconds = delay))
-        time.sleep(delay)
 
       if(format == 'graph'):
         self.prepare_csv(output_path)

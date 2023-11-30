@@ -1,6 +1,9 @@
 from typing import List
 from scrapper import SupremeCourtUnitedStates, SupremeCourtSpain
+from scrapper.generic_functions.utils import chunks
 import configparser
+import time
+import random
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -14,8 +17,13 @@ source_USASupremeCourt:str = 'USASupremeCourt'
 output_path:str = config['EXTRA']['OutputPath']
 
 #Get some cases and save them on local files
-#SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True)
-SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'graph',True)
+case_ids_chunks = list(chunks(case_ids, 10))
+for chunk in case_ids_chunks:
+    #SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True)
+    SupremeCourtSpain(source_SpanishSupremeCourt,chunk).get_data(output_path,'graph',True)
+    delay:int = (250/1000) * random.randint(0, 10)
+    print('Waiting for {miliseconds} seconds to avoid blocking from the server'.format(miliseconds = delay))
+    time.sleep(delay)
 
 #Get some cases and return as list
 #print(SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',False))
