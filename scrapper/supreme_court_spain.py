@@ -21,37 +21,18 @@ class SupremeCourtSpain(DataScrapper):
           }
 
     def prepare_csv(self,output_path:str):
-      cases_json = json.loads(json.dumps([ob.__dict__ for ob in self.cases]))
-      full_cases_json = self.csv_checker(output_path,'cases',cases_json)
-      full_cases_json.to_csv(output_path+'cases.csv',index=False)
-
-      magistrates_json = json.loads(json.dumps([ob.__dict__ for ob in self.magistrates]))
-      magistrates_json = self.csv_checker(output_path,'magistrates',magistrates_json)
-      magistrates_json.to_csv(output_path+'magistrates.csv',index=False)
-
-      backgrounds_json = json.loads(json.dumps([ob.__dict__ for ob in self.backgrounds]))
-      backgrounds_json = self.csv_checker(output_path,'backgrounds',backgrounds_json)
-      backgrounds_json.to_csv(output_path+'backgrounds.csv',index=False)
-
-      articles_json = json.loads(json.dumps([ob.__dict__ for ob in self.articles]))
-      articles_json = self.csv_checker(output_path,'articles',articles_json)
-      articles_json.to_csv(output_path+'articles.csv',index=False)
-
-      headers_json = json.loads(json.dumps([ob.__dict__ for ob in self.headers]))
-      headers_json = self.csv_checker(output_path,'headers',headers_json)
-      headers_json.to_csv(output_path+'headers.csv',index=False)
-
-      dictums_json = json.loads(json.dumps([ob.__dict__ for ob in self.dictums]))
-      dictums_json = self.csv_checker(output_path,'dictums',dictums_json)
-      dictums_json.to_csv(output_path+'dictums.csv',index=False)
-
-      abstracts_json = json.loads(json.dumps([ob.__dict__ for ob in self.abstracts]))
-      abstracts_json = self.csv_checker(output_path,'abstracts',abstracts_json)
-      abstracts_json.to_csv(output_path+'abstracts.csv',index=False)
-
-      fundamentals_json = json.loads(json.dumps([ob.__dict__ for ob in self.fundamentals]))
-      fundamentals_json = self.csv_checker(output_path,'fundamentals',fundamentals_json)
-      fundamentals_json.to_csv(output_path+'fundamentals.csv',index=False)
+      files_and_elements:List[str]={
+            "cases":self.cases,
+            "magistrates":self.magistrates,
+            "backgrounds":self.backgrounds,
+            "articles":self.articles,
+            "headers":self.headers,
+            "dictums":self.dictums,
+            "abstracts":self.abstracts,
+            "fundamentals":self.fundamentals
+          }
+      for key, value in files_and_elements.items():
+        self.data_saver(output_path,key,value)
 
     def csv_checker(self,path:str,file_name:str,new_dataframe):
       full_path:str = path+file_name+'.csv'
@@ -62,8 +43,10 @@ class SupremeCourtSpain(DataScrapper):
         return pd.concat([current_file,new_dataframe_formatted])
       return new_dataframe_formatted
 
-      
-
+    def data_saver(self,output_path:str,file_name:str, values):
+      values_json = json.loads(json.dumps([ob.__dict__ for ob in values]))
+      full_values_json = self.csv_checker(output_path,file_name,values_json)
+      full_values_json.to_csv(output_path+file_name+'.csv',index=False)
 
     def get_data(self, output_path:str, format:str='json', save_data_on_file:bool=False):
       completed_response = []
