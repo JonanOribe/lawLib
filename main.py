@@ -5,7 +5,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-case_ids:List = [str(i) for i in [*range(1,1200)]]
+case_ids:List = [str(i) for i in [*range(1,100)]]
 area:str='courts'
 source_SpanishSupremeCourt:str = 'SpanishSupremeCourt'
 source_USASupremeCourt:str = 'USASupremeCourt'
@@ -25,4 +25,6 @@ SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'gra
 
 #Get some cases and return as list
 #print(SupremeCourtUnitedStates(source_USASupremeCourt,area).get_data(output_path,'json',False))
+
+print('The process has ended successfully!!')
 
