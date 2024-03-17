@@ -1,15 +1,27 @@
 import os
 import pandas as pd
+import json
+
+from upload_to_database import load_data_on_db
+
 directory = './data/'
 node_relation_for_csvs = {
-    "cases":"LegalCases",
-    "magistrates":"LegalMagistrates",
-    "backgrounds":"LegalBackgrounds",
-    "articles":"LegalArticles",
-    "headers":"LegalHeaders",
-    "dictums":"LegalDictums",
-    "abstracts":"LegalAbstracts",
-    "fundamentals":"LegalFundamentals"
+    "cases":"legalCases",
+    "magistrates":"legalMagistrates",
+    "backgrounds":"legalBackgrounds",
+    "articles":"legalArticles",
+    "headers":"legalHeaders",
+    "dictums":"legalDictums",
+    "abstracts":"legalAbstracts",
+    "fundamentals":"legalFundamentals"
+}
+
+section:str = 'legalData'
+
+method:str = 'POST'
+
+headers = {
+  'Content-Type': 'application/json'
 }
 
 def chunks(lst, n):
@@ -30,8 +42,9 @@ def csv_to_json(files):
     for file in files:
         df = pd.read_csv(file)
         file_title = file.split('/')[-1].split('.csv')[0]
-        formatted_file_title = node_relation_for_csvs[file_title]
-        df.to_json (directory+formatted_file_title +'.json',orient="records")
+        endpoint = node_relation_for_csvs[file_title]
+        df_to_json = df.to_json (orient="records")
+        load_data_on_db(section,endpoint,headers,method,df_to_json)
 
 files = get_data_files()
 csv_to_json(files)
