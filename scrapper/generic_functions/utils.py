@@ -1,5 +1,16 @@
 import os
 import pandas as pd
+directory = './data/'
+node_relation_for_csvs = {
+    "cases":"LegalCases",
+    "magistrates":"LegalMagistrates",
+    "backgrounds":"LegalBackgrounds",
+    "articles":"LegalArticles",
+    "headers":"LegalHeaders",
+    "dictums":"LegalDictums",
+    "abstracts":"LegalAbstracts",
+    "fundamentals":"LegalFundamentals"
+}
 
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
@@ -7,7 +18,6 @@ def chunks(lst, n):
         yield lst[i:i + n]
 
 def get_data_files():
-    directory = './data/'
     folder_files = []
     for filename in os.listdir(directory):
         f = os.path.join(directory, filename).replace('\\','/')
@@ -18,8 +28,10 @@ def get_data_files():
 
 def csv_to_json(files):
     for file in files:
-        df = pd.read_csv (file)
-        df.to_json (file.split('.csv')[0]+'.json',orient="records")
+        df = pd.read_csv(file)
+        file_title = file.split('/')[-1].split('.csv')[0]
+        formatted_file_title = node_relation_for_csvs[file_title]
+        df.to_json (directory+formatted_file_title +'.json',orient="records")
 
 files = get_data_files()
 csv_to_json(files)

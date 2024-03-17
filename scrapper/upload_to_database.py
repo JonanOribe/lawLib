@@ -7,6 +7,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 databaseUrl:str = config['DEFAULT']['databaseUrl']
+
 section:str = 'legalData'
 endpoint:str = 'legalCase'
 
