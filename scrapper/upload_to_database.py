@@ -1,7 +1,19 @@
 import requests
 import json
+import configparser
 
-url = "http://localhost:3002/legalData/legalCase"
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+databaseUrl:str = config['DEFAULT']['databaseUrl']
+section:str = 'legalData'
+endpoint:str = 'legalCase'
+
+method:str = 'POST'
+
+headers = {
+  'Content-Type': 'application/json'
+}
 
 payload = json.dumps({
   "resolution_type": "resolution_type",
@@ -25,10 +37,14 @@ payload = json.dumps({
   "content_irrelevant_for_internet": "content_irrelevant_for_internet",
   "cache_date": "cache_date"
 })
-headers = {
-  'Content-Type': 'application/json'
-}
 
-response = requests.post(url, headers=headers, data=payload)
 
-print(response.text)
+def load_data_on_db(section,endpoint,headers,method,payload):
+
+    url = "{databaseUrl}{section}/{endpoint}".format(databaseUrl=databaseUrl,section=section,endpoint=endpoint)
+
+    response = requests.request(method,url, headers=headers, data=payload)
+
+    print(response.text)
+
+load_data_on_db(section,endpoint,headers,method,payload)
