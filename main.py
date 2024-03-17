@@ -8,7 +8,7 @@ import random
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-case_ids:List = [str(i) for i in [*range(1,500)]]
+case_ids:List = [str(i) for i in [*range(1,29900)]]
 area:str='courts'
 source_SpanishSupremeCourt:str = 'SpanishSupremeCourt'
 source_USASupremeCourt:str = 'USASupremeCourt'
@@ -17,7 +17,7 @@ source_USASupremeCourt:str = 'USASupremeCourt'
 output_path:str = config['EXTRA']['OutputPath']
 
 #Get some cases and save them on local files
-case_ids_chunks = list(chunks(case_ids, 10))
+case_ids_chunks = list(chunks(case_ids, 40))
 for chunk in case_ids_chunks:
     #SupremeCourtSpain(source_SpanishSupremeCourt,case_ids).get_data(output_path,'json',True)
     SupremeCourtSpain(source_SpanishSupremeCourt,chunk).get_data(output_path,'graph',True)

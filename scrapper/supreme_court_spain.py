@@ -55,16 +55,19 @@ class SupremeCourtSpain(DataScrapper):
         headers = {
           'Content-Type': 'application/json'
         }
+        try:
+          response = requests.request("GET", completed_url, headers=headers, data={}).json()
 
-        response = requests.request("GET", completed_url, headers=headers, data={}).json()
+          if(save_data_on_file):
+            super()._save_data(response['REFERENCIA_BOE'], response, format, output_path)
+          else:
+            completed_response.append(response)
 
-        if(save_data_on_file):
-          super()._save_data(response['REFERENCIA_BOE'], response, format, output_path)
-        else:
-          completed_response.append(response)
-
-        if (int(index) % 100 == 0):
-          print('Number of scrapped elements: '+case_id)
+          if (int(index) % 100 == 0):
+            print('Number of scrapped elements: '+case_id)
+        except Exception as ex:
+          print(ex)
+          print('URL fails')
 
       if(format == 'graph'):
         self.prepare_csv(output_path)
