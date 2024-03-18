@@ -12,8 +12,6 @@ def load_data_on_db(section,endpoint,headers,method,payload):
     
     print('Current endpoint: {url}'.format(url=url))
     
-    response = requests.request(method,url, headers=headers, data=payload)
-
-    print(response.text)
+    requests.request(method,url, headers=headers, data=payload)
 
 #load_data_on_db(section,endpoint,headers,method,payload)
