@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 
+#from scrapper.generic_functions.upload_to_database import flush_data_on_db, load_cases_refs_on_db, load_data_on_db
 from upload_to_database import flush_data_on_db, load_cases_refs_on_db, load_data_on_db
 
 directory = './data/'
