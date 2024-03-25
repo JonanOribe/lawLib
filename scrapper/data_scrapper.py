@@ -30,46 +30,57 @@ class DataScrapper:
     def get_scrapper_sources(self):
         return {section: dict(config.items(section)) for section in config.sections()}['URLS']
 
-    def _save_data(self, file_name:str, data, format:str, output_path:str):
-      if format == 'json':
-        formatted_output_path:str = '{}{}.{}'.format(output_path, file_name, format)
-        with open(formatted_output_path, 'w') as outfile:
-          json.dump(data, outfile)
-      if format == 'graph': 
-        case_ref = data['REFERENCIA_BOE']
-        self.cases.append(Case(data))
-        try:
-          for elem in data['RESOLUCIONES_MAGISTRADOS']:
-            self.magistrates.append(Magistrate(case_ref,elem))
-        except:
-          pass
-        try:
-          for elem in data['RESOLUCIONES_ANTECEDENTES']:
-            self.backgrounds.append(Background(case_ref,elem))
-        except:
-          pass
-        try:
-          for elem in data['RESOLUCIONES_ARTICULOS']:
-            self.articles.append(Article(case_ref,elem))
-        except:
-          pass
-        try:
-          for elem in data['RESOLUCIONES_CABECERA']:
-            self.headers.append(Header(case_ref,elem))
-        except:
-          pass
-        try:
-          for elem in data['RESOLUCIONES_DICTAMEN']:
-            self.dictums.append(Dictum(case_ref,elem))
-        except:
-          pass
-        try:
-          for elem in data['RESOLUCIONES_EXTRACTOS']:
-            self.abstracts.append(Abstract(case_ref,elem))
-        except:
-          pass
-        try:
-          for elem in data['RESOLUCIONES_FUNDAMENTOS']:
-            self.fundamentals.append(Fundamentals(case_ref,elem))
-        except:
-          pass
+    def _save_data(self, data, format:str, output_path:str):
+      #TIPO_NUMERADO,NUMERO_RESOLUCION,REFERENCIA_BOE
+      case_ref:str = ''
+      data_keys =  data.keys()
+      try:
+        if 'REFERENCIA_BOE' in data_keys:
+          case_ref = data['REFERENCIA_BOE']+'------'+'REFERENCIA_BOE'
+        elif 'TIPO_NUMERADO' in data_keys:     
+          case_ref = data['TIPO_NUMERADO']+'------'+'TIPO_NUMERADO'   
+        elif 'NUMERO_RESOLUCION' in data_keys:
+          case_ref = data['NUMERO_RESOLUCION']+'------'+'NUMERO_RESOLUCION'
+        if format == 'json':
+          formatted_output_path:str = '{}{}.{}'.format(output_path, case_ref, format)
+          with open(formatted_output_path, 'w') as outfile:
+            json.dump(data, outfile)
+        if format == 'graph': 
+          self.cases.append(Case(data))
+          try:
+            for elem in data['RESOLUCIONES_MAGISTRADOS']:
+              self.magistrates.append(Magistrate(case_ref,elem))
+          except:
+            pass
+          try:
+            for elem in data['RESOLUCIONES_ANTECEDENTES']:
+              self.backgrounds.append(Background(case_ref,elem))
+          except:
+            pass
+          try:
+            for elem in data['RESOLUCIONES_ARTICULOS']:
+              self.articles.append(Article(case_ref,elem))
+          except:
+            pass
+          try:
+            for elem in data['RESOLUCIONES_CABECERA']:
+              self.headers.append(Header(case_ref,elem))
+          except:
+            pass
+          try:
+            for elem in data['RESOLUCIONES_DICTAMEN']:
+              self.dictums.append(Dictum(case_ref,elem))
+          except:
+            pass
+          try:
+            for elem in data['RESOLUCIONES_EXTRACTOS']:
+              self.abstracts.append(Abstract(case_ref,elem))
+          except:
+            pass
+          try:
+            for elem in data['RESOLUCIONES_FUNDAMENTOS']:
+              self.fundamentals.append(Fundamentals(case_ref,elem))
+          except:
+            pass
+      except:
+        pass

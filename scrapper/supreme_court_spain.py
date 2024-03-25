@@ -38,7 +38,11 @@ class SupremeCourtSpain(DataScrapper):
       full_path:str = path+file_name+'.csv'
       new_dataframe_formatted = pd.DataFrame.from_records(new_dataframe)
       if (self.already_merge[file_name] != True and exists(full_path)):
-        current_file = pd.read_csv(full_path)
+        try:
+          current_file = pd.read_csv(full_path) #TODO
+        except Exception as ex:
+          current_file = pd.DataFrame()
+          pass
         self.already_merge[file_name]=True
         return pd.concat([current_file,new_dataframe_formatted])
       return new_dataframe_formatted
@@ -59,7 +63,7 @@ class SupremeCourtSpain(DataScrapper):
           response = requests.request("GET", completed_url, headers=headers, data={}).json()
 
           if(save_data_on_file):
-            super()._save_data(response['REFERENCIA_BOE'], response, format, output_path)
+            super()._save_data(response, format, output_path)
           else:
             completed_response.append(response)
 

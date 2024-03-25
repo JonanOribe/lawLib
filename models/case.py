@@ -7,7 +7,7 @@ class Case:
         
         self.registration_date:str = case_data.get('FECHA_REGISTRO','')
         self.numeric_type:str = case_data.get('TIPO_NUMERADO','')
-        self.register_type:str = case_data.get('NUMERO_REGISTRO','')
+        self.register_number:str = case_data.get('TIPO_NUMERADO','')
         self.language:str = case_data.get('IDIOMA','')
         
         self.descriptive_synthesis:str = case_data.get('SINTESIS_DESCRIPTIVA','')

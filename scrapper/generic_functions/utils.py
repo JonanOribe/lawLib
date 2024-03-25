@@ -44,7 +44,7 @@ def update_case_ref(files):
     for file in files:
         if 'cases' in file:
             df = pd.read_csv(file)
-            df_to_json = df['boe_reference'].to_json (orient="records")
+            df_to_json = df.to_json (orient="records")
             load_cases_refs_on_db(section,headers,method,df_to_json)
 
 def get_data_files():
@@ -55,10 +55,11 @@ def get_data_files():
             folder_files.append(f)
     return folder_files
 
+
 def csv_to_json(files):
     for file in files:
         df = pd.read_csv(file)
-        n:int= 30
+        n:int= 200
         list_df = [df[i:i+n] for i in range(0,df.shape[0],n)]
         file_title = file.split('/')[-1].split('.csv')[0]
         endpoint = node_relation_for_csvs[file_title]
